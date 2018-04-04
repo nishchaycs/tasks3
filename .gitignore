@@ -39,6 +39,35 @@ jspm_packages/
 # Typescript v1 declaration files
 typings/
 
+# App artifacts
+/tasks3/_build
+/tasks3/db
+/tasks3/deps
+/tasks3/*.ez
+
+# Generated on crash by the VM
+/tasks3/erl_crash.dump
+
+# Generated on crash by NPM
+/tasks3/npm-debug.log
+
+# Static artifacts
+/tasks3/assets/node_modules
+
+# Since we are building assets from assets/,
+# we ignore priv/static. You may want to comment
+# this depending on your deployment strategy.
+/tasks3/priv/static/
+node_modules/
+
+# Files matching config/*.secret.exs pattern contain sensitive
+# data and you should not commit them into version control.
+#
+# Alternatively, you may comment the line below and commit the
+# secrets files as long as you replace their contents by environment
+# variables.
+/tasks3/config/*.secret.exs
+
 # Optional npm cache directory
 .npm
 

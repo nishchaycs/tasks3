@@ -67,7 +67,8 @@ class TheServer {
       data: "",
       success: (resp) => {
         let taskd ={
-          user_id: resp.data.user.id,
+					user: resp.data.user,
+					user_id: resp.data.user_id,
           title: resp.data.title,
           description: resp.data.description,
           done: resp.data.done,

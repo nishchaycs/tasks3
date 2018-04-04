@@ -27,10 +27,10 @@ function users(state = [], action) {
 }
 
 let empty_form = {
-  user: "",
+  user_id: "",
   title: "",
   description: "",
-  time: 0,
+  time_spent: 0,
   done: false,
 };
 
@@ -38,6 +38,8 @@ function form(state = empty_form, action) {
   switch (action.type) {
     case 'UPDATE_FORM':
       return Object.assign({}, state, action.data);
+    case 'CLEAR_POST_FORM':
+      return empty_form;
     default:
       return state;
   }
@@ -49,6 +51,8 @@ function editform(state = empty_form, action) {
       return Object.assign({}, state, action.data);
     case 'INIT_EDIT_TASK':
       return Object.assign({}, state, action.task);
+    case 'CLEAR_EDIT_FORM':
+      return empty_form;
     default:
       return state;
   }

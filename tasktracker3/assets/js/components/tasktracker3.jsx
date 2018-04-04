@@ -24,6 +24,7 @@ let Tasktracker3 = connect((state) => state)((props) => {
         <Nav />
         <Route path="/" exact={true} render={() =>
           <div>
+            <h1>Your Feed</h1>
             <Feed tasks={props.tasks} />
           </div>
         } />

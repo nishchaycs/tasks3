@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 
 import api from '../api'
@@ -23,8 +24,14 @@ function PostForm(params) {
     params.dispatch(action);
   }
 
+  function clear(ev) {
+    params.dispatch({type: 'CLEAR_POST_FORM'});
+  }
+
   function submit() {
     api.submit_post(params.form);
+    clear();
+    document.getElementById('backbtn').click();
   }
 
   let users = _.map(params.users, (uu) => <option key={uu.id} value={uu.id}>{uu.name}</option>);
@@ -60,8 +67,10 @@ function PostForm(params) {
     </FormGroup>
 
     <FormGroup>
-      <Button onClick={submit} color="primary">Submit</Button>
+      <Button onClick={submit} color="primary">Submit</Button> &nbsp;
+      <Button onClick={clear}>Clear Form</Button>
     </FormGroup>
+    <Link to = {"/"} id="backbtn">Back</Link>
   </div>;
 }
 

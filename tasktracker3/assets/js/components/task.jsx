@@ -12,9 +12,7 @@ export default function Task(params) {
   function editTask(ev) {
     api.initialize_edit_form(params.task.id);
   }
-  console.log(params.task);
   let task = params.task;
-  console.log(task.id);
   return (<Card>
     <CardBody>
       <div>

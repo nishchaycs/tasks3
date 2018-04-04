@@ -32,7 +32,6 @@ function EditForm(params) {
     api.edit_task(params.editform, parseInt(params.task[0].id));
     document.getElementById('backbtn').click();
   }
-  console.log(params);
   let task = params.task[0];
   let users = _.map(params.users, (uu) => <option key={uu.id} value={uu.id}>{uu.name}</option>);
   return <div style={{padding: "4ex"}}>
@@ -69,7 +68,7 @@ function EditForm(params) {
     </FormGroup>
 
     <FormGroup>
-      <Button onClick={submit} color="primary">Submit</Button>
+      <Button onClick={submit} color="primary">Submit</Button> &nbsp;
       <Button onClick={clear}>Clear Form</Button>
     </FormGroup>
     <Link to = {"/"} id="backbtn">Back</Link>
@@ -78,7 +77,6 @@ function EditForm(params) {
 }
 
 function state2props(state) {
-  console.log("rerender", state);
   return { editform: state.editform };
 }
 

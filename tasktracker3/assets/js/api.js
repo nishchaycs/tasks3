@@ -2,6 +2,27 @@ import store from './store';
 
 class TheServer {
 
+	submit_login(data) {
+    $.ajax("/api/v1/token", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify(data),
+      success: (resp) => {
+        store.dispatch({
+          type: 'SET_TOKEN',
+          token: resp,
+        });
+      },
+			// error: (msg) => {
+			// 	store.dispatch({
+      //     type: 'SET_LOGIN_TOKEN',
+      //     error: msg,
+      //   });
+			// },
+    });
+  }
+
 	request_tasks() {
 	    $.ajax("/api/v1/tasks", {
 	      method: "get",
@@ -35,7 +56,7 @@ class TheServer {
 	      method: "post",
 	      dataType: "json",
 	      contentType: "application/json; charset=UTF-8",
-	      data: JSON.stringify({ task: data }),
+	      data: JSON.stringify({ token: data.token, post: data }),
 	      success: (resp) => {
 	        store.dispatch({
 	          type: 'ADD_TASK',
@@ -81,8 +102,6 @@ class TheServer {
 	}
 
 	edit_task(data, id) {
-		console.log(id);
-		console.log(data);
 		$.ajax("/api/v1/tasks/"+id, {
 			method: "put",
 			dataType: "json",

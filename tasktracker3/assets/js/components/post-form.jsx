@@ -75,7 +75,6 @@ function PostForm(params) {
 }
 
 function state2props(state) {
-  console.log("rerender", state);
   return { form: state.form };
 }
 

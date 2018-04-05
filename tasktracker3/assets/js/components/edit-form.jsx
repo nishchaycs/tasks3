@@ -29,8 +29,10 @@ function EditForm(params) {
   }
 
   function submit() {
-    api.edit_task(params.editform, parseInt(params.task[0].id));
-    document.getElementById('backbtn').click();
+
+      api.edit_task(params.editform, parseInt(params.task[0].id));
+      document.getElementById('backbtn').click();
+    
   }
   let task = params.task[0];
   let users = _.map(params.users, (uu) => <option key={uu.id} value={uu.id}>{uu.name}</option>);

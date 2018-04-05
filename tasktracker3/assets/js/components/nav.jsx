@@ -19,7 +19,7 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
   function create_token(ev) {
     ev.preventDefault();
     api.submit_login(props.login);
-    console.log(props);
+    document.getElementById('feedpage').click();
   }
 
   return <div className="navbar-text">
@@ -27,13 +27,14 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
       <FormGroup>
         <Input type="email" name="email" placeholder="Email"
                value={props.login.email} onChange={update} />
-      </FormGroup>
+           </FormGroup> &nbsp;
       <FormGroup>
         <Input type="password" name="password" placeholder="password"
                value={props.login.password} onChange={update} />
-      </FormGroup>
+      </FormGroup> &nbsp;
       <Button onClick={create_token}>Log In</Button> &nbsp;
       <Link to={"/register"} >Register</Link>
+      <Link to={"/"} type="hidden" id="feedpage"></Link>
     </Form>
   </div>;
 });
@@ -47,7 +48,17 @@ let Session = connect(({token}) => {return {token};})((props) => {
     location.replace("/");
   }
   return <div className="navbar-text">
-    Welcome, { props.token.name } | <Button onClick={logout}>Log Out</Button>
+    <ul className="navbar-nav">
+	  	<NavItem className="nav-item ml-auto active">
+	  		<NavLink to="/" exact={false} activeClassName="active" className="nav-link">Feed</NavLink>
+  		</NavItem>
+	  	<NavItem className="nav-item ml-auto">
+	  		<NavLink to="/newtask" exact={false} href="#" className="nav-link">New Task</NavLink>
+  		</NavItem>
+      <NavItem className="nav-item mr-auto">
+        <p>Welcome, { props.token.name } | <Button onClick={logout}>Log Out</Button></p>
+      </NavItem>
+    </ul>
   </div>;
 });
 
@@ -64,14 +75,6 @@ function Nav(props) {
   return (
   	<nav className="navbar navbar-expand-lg navbar-dark bg-primary">
 	  <span className="navbar-brand">Tasktracker 3.0</span>
-	  <ul className="navbar-nav mr-auto">
-	  	<NavItem className="nav-item active">
-	  		<NavLink to="/" exact={false} activeClassName="active" className="nav-link">Feed</NavLink>
-  		</NavItem>
-	  	<NavItem className="nav-item">
-	  		<NavLink to="/newtask" exact={false} href="#" className="nav-link">New Task</NavLink>
-  		</NavItem>
-	  </ul>
 	  { session_info }
 	</nav>
 	);

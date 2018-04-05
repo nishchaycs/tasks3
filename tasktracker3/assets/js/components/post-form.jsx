@@ -29,9 +29,15 @@ function PostForm(params) {
   }
 
   function submit() {
-    api.submit_post(params.form);
-    clear();
-    document.getElementById('backbtn').click();
+    if(params.form.title == "" || params.form.description == "" || params.form.user == "" ||
+      params.form.time_spent == "" || (Number(params.form.time_spent)%15 != 0)) {
+        alert("Form Value(s) Incorrect!");
+      }
+    else {
+      api.submit_post(params.form);
+      clear();
+      document.getElementById('backbtn').click();
+    }
   }
 
   let users = _.map(params.users, (uu) => <option key={uu.id} value={uu.id}>{uu.name}</option>);

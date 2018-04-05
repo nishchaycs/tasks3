@@ -21,6 +21,7 @@ function RegisterUser(params) {
 
   function register_user(ev) {
     api.registeruser(params.userform);
+    document.getElementById('feedpage').click();
   }
 
   return <div style={{padding: "4ex"}}>
@@ -39,7 +40,8 @@ function RegisterUser(params) {
       <Input type="password" name="password" value={params.userform.password}
         placeholder="Password" onChange={update} />
     </FormGroup>
-    <Button onClick={register_user} color="primary">Register</Button>
+      <Button onClick={register_user} color="primary">Register</Button>
+      <Link to={"/"} type="hidden" id="feedpage"></Link>
     </div>;
 
 }

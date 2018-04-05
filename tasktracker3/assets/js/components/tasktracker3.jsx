@@ -19,6 +19,7 @@ export default function tasktracker3_init(store) {
 }
 
 let Tasktracker3 = connect((state) => state)((props) => {
+
   return (
     <Router>
       <div>
@@ -26,7 +27,7 @@ let Tasktracker3 = connect((state) => state)((props) => {
         <Route path="/" exact={true} render={() =>
           <div>
             <h1>Your Feed</h1>
-            <Feed tasks={props.tasks} />
+            <Feed tasks={props.tasks} token={props.token}/>
           </div>
         } />
         <Route path="/newtask" exact={true} render={() =>

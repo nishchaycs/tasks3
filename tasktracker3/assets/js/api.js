@@ -2,6 +2,42 @@ import store from './store';
 
 class TheServer {
 
+	registeruser(data) {
+		$.ajax("/api/v1/users", {
+			method: "post",
+			dataType: "json",
+			contentType: "application/json; charset=UTF-8",
+			data: JSON.stringify({ user: data }),
+			success: (resp) => {
+				store.dispatch({
+					type: 'ADD_USER',
+					task: resp.data,
+				});
+			},
+		});
+	}
+
+	submit_login(data) {
+    $.ajax("/api/v1/token", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify(data),
+      success: (resp) => {
+        store.dispatch({
+          type: 'SET_TOKEN',
+          token: resp,
+        });
+      },
+			// error: (msg) => {
+			// 	store.dispatch({
+      //     type: 'SET_LOGIN_TOKEN',
+      //     error: msg,
+      //   });
+			// },
+    });
+  }
+
 	request_tasks() {
 	    $.ajax("/api/v1/tasks", {
 	      method: "get",
@@ -43,7 +79,7 @@ class TheServer {
 	        });
 	      },
 	    });
-	}
+		}
 
 	delete_task(id) {
 		$.ajax("/api/v1/tasks/"+id, {
@@ -67,7 +103,8 @@ class TheServer {
       data: "",
       success: (resp) => {
         let taskd ={
-          user_id: resp.data.user.id,
+					user: resp.data.user,
+					user_id: resp.data.user_id,
           title: resp.data.title,
           description: resp.data.description,
           done: resp.data.done,
@@ -80,8 +117,6 @@ class TheServer {
 	}
 
 	edit_task(data, id) {
-		console.log(id);
-		console.log(data);
 		$.ajax("/api/v1/tasks/"+id, {
 			method: "put",
 			dataType: "json",

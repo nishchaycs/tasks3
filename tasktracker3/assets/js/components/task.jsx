@@ -12,9 +12,7 @@ export default function Task(params) {
   function editTask(ev) {
     api.initialize_edit_form(params.task.id);
   }
-  console.log(params.task);
   let task = params.task;
-  console.log(task.id);
   return (<Card>
     <CardBody>
       <div>
@@ -23,7 +21,7 @@ export default function Task(params) {
         <p>Description: { task.description }</p>
         <p>Done: { String(task.done) }</p>
         <p>Time Spent: { task.time_spent }</p>
-        <Link to={"/tasks/"+ task.id} onClick={editTask}>Edit</Link>
+        <Link to={"/tasks/"+ task.id} onClick={editTask}>Edit</Link> &nbsp;
         <Button onClick={(ev) => deleteTask(ev, task.id)}>Delete</Button>
       </div>
     </CardBody>

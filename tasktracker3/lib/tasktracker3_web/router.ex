@@ -20,11 +20,13 @@ defmodule Tasktracker3Web.Router do
     get "/newtask", PageController, :index
     get "/users/:id", PageController, :index
     get "/tasks/:id", PageController, :index
+    get "/register", PageController, :index
   end
 
   # Other scopes may use custom stacks.
   scope "/api/v1", Tasktracker3Web do
     pipe_through :api
+    post "/token", TokenController, :create
     delete "/tasks/:id", TaskController, :delete
     resources "/users", UserController, except: [:new, :edit]
     resources "/tasks", TaskController, except: [:new, :edit]

@@ -7,6 +7,7 @@ import Nav from './nav';
 import Feed from './feed';
 import PostForm from './post-form';
 import EditForm from './edit-form';
+import RegisterUser from './register-user';
 
 export default function tasktracker3_init(store) {
   ReactDOM.render(
@@ -18,13 +19,15 @@ export default function tasktracker3_init(store) {
 }
 
 let Tasktracker3 = connect((state) => state)((props) => {
+
   return (
     <Router>
       <div>
         <Nav />
         <Route path="/" exact={true} render={() =>
           <div>
-            <Feed tasks={props.tasks} />
+            <h1>Your Feed</h1>
+            <Feed tasks={props.tasks} token={props.token}/>
           </div>
         } />
         <Route path="/newtask" exact={true} render={() =>
@@ -38,6 +41,9 @@ let Tasktracker3 = connect((state) => state)((props) => {
         <Route path="/tasks/:taskid" exact={true} render={({match}) =>
           <EditForm task={_.filter(props.tasks, (pp) =>
             match.params.taskid == pp.id )} users={props.users} />
+        } />
+      <Route path="/register" exact={true} render={({match}) =>
+          <RegisterUser />
         } />
       </div>
     </Router>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 
 import api from '../api'
@@ -23,18 +24,26 @@ function EditForm(params) {
     params.dispatch(action);
   }
 
-  function submit() {
-    api.edit_task(params.editform, parseInt(params.task[0].id));
+  function clear(ev) {
+    params.dispatch({type: 'CLEAR_EDIT_FORM'});
   }
-  console.log(params);
+
+  function submit() {
+
+      api.edit_task(params.editform, parseInt(params.task[0].id));
+      document.getElementById('backbtn').click();
+    
+  }
   let task = params.task[0];
   let users = _.map(params.users, (uu) => <option key={uu.id} value={uu.id}>{uu.name}</option>);
   return <div style={{padding: "4ex"}}>
     <FormGroup>
       <Label for="user_id">User</Label>
-      <Input type="select" name="user_id" value={params.editform.user_id} onChange={update}>
+      <Input type="select" name="user_id" value={params.task[0].user.id} onChange={update}>
         <option></option>
-        { users }
+        <option key={params.task[0].user.id} value={params.task[0].user.id}>
+          {params.task[0].user.name}
+        </option>
       </Input>
     </FormGroup>
 
@@ -61,14 +70,15 @@ function EditForm(params) {
     </FormGroup>
 
     <FormGroup>
-      <Button onClick={submit} color="primary">Submit</Button>
+      <Button onClick={submit} color="primary">Submit</Button> &nbsp;
+      <Button onClick={clear}>Clear Form</Button>
     </FormGroup>
+    <Link to = {"/"} id="backbtn">Back</Link>
   </div>;
 
 }
 
 function state2props(state) {
-  console.log("rerender", state);
   return { editform: state.editform };
 }
 

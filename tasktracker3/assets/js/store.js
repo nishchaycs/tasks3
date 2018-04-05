@@ -4,7 +4,8 @@ import deepFreeze from 'deep-freeze';
 function token(state = null, action) {
   switch (action.type) {
     case 'SET_TOKEN':
-      console.log(action);
+      return action.token;
+    case 'DELETE_TOKEN':
       return action.token;
     default:
       return state;
@@ -13,7 +14,7 @@ function token(state = null, action) {
 
 let empty_login = {
   email: "",
-  pass: "",
+  password: "",
 };
 
 function login(state = empty_login, action) {
@@ -45,8 +46,25 @@ function users(state = [], action) {
   switch (action.type) {
   case 'USERS_LIST':
     return [...action.users];
+  case 'ADD_USER':
+    return [action.user, ...state];
   default:
     return state;
+  }
+}
+
+let empty_userform = {
+  name: "",
+  email: "",
+  password: "",
+}
+
+function userform(state = empty_userform, action) {
+  switch (action.type) {
+    case 'UPDATE_USERFORM':
+      return Object.assign({}, state, action.data);
+    default:
+      return state;
   }
 }
 
@@ -85,7 +103,7 @@ function editform(state = empty_form, action) {
 }
 
 function root_reducer(state0, action) {
-  let reducer = combineReducers({tasks, users, form, editform, token, login});
+  let reducer = combineReducers({tasks, users, form, editform, token, login, userform});
   let state1 = reducer(state0, action);
   console.log(state1);
   return deepFreeze(state1);

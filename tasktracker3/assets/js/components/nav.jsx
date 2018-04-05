@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Form, FormGroup, NavItem, Input, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 
@@ -29,17 +29,25 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
                value={props.login.email} onChange={update} />
       </FormGroup>
       <FormGroup>
-        <Input type="password" name="pass" placeholder="password"
-               value={props.login.pass} onChange={update} />
+        <Input type="password" name="password" placeholder="password"
+               value={props.login.password} onChange={update} />
       </FormGroup>
-      <Button onClick={create_token}>Log In</Button>
+      <Button onClick={create_token}>Log In</Button> &nbsp;
+      <Link to={"/register"} >Register</Link>
     </Form>
   </div>;
 });
 
 let Session = connect(({token}) => {return {token};})((props) => {
+  function logout(ev) {
+    props.dispatch({
+      type: 'DELETE_TOKEN',
+      token: null,
+    });
+    location.replace("/");
+  }
   return <div className="navbar-text">
-    Welcome, { props.token.name }
+    Welcome, { props.token.name } | <Button onClick={logout}>Log Out</Button>
   </div>;
 });
 
